@@ -1,5 +1,7 @@
 const {Router} = require('express');
 const {Product} = require('../models');
+const multer = require('multer');
+const multerConfig = require('../config/multer')
 
 const router = Router();
 
@@ -25,10 +27,11 @@ router.get('/:id', async(req, res) => {
     }
 });
 
-router.post('/', async(req, res) => {
+router.post('/', multer(multerConfig).single('file'), async(req, res) => {
+    console.log(req.file);
     try {
         const {img, nome, preco, estoque} = req.body;
-        const product = Product.create({img, nome, preco, estoque});
+        const product = Product.create({img: req.file.filename, nome, preco, estoque});
 
         return res.send({message:"Produto criado com sucesso"});
         
