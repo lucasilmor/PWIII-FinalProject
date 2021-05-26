@@ -3,15 +3,16 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     return queryInterface.createTable('Products', {
-      img: {
-        allowNull: false,
-        type: Sequelize.STRING,
-      },
+     
       id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true,
         allowNull: false,
+      },
+      img: {
+        allowNull: false,
+        type: Sequelize.STRING,
       },
       nome: {
         type: Sequelize.STRING,
