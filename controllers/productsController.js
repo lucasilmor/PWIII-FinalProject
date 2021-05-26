@@ -3,44 +3,76 @@ const {Product} = require('../models');
 
 const router = Router();
 
-router.get('/', async (req, res) => {
-    const products = await Product.findAll();
-    res.status(200).json(products);
+router.get('/', async(req, res) =>{
+    try {
+        const products = await Product.findAll()
+
+        return res.send({ products });
+
+    } catch (error) {
+        return res.status(400).send({ error: 'Erro ao carregar produtos' });
+    }
 });
 
-router.get('/:id', async (req, res) => {
-    const product = await Product.findByPk(req.params.id)
-    res.status(200).json(product);
-})
+router.get('/:id', async(req, res) => {
+    try {
+        const product = await Product.findByPk(req.params.id)
 
-router.post('/', async (req, res) => {
-    const {img, nome, preco, estoque} = req.body;
-    const newProduct = Product.create({img, nome, preco, estoque});
+        return res.send({ product });
 
-    res.status(200).json({message:"Produto criado"});
+    } catch (error) {
+        return res.status(400).send({ error: 'Erro ao carregar produto' });
+    }
 });
 
-router.delete('/:id', async (req, res) =>{
-    await Product.destroy({
-        where:{
-            id: req.params.id,
+router.post('/', async(req, res) => {
+    try {
+        const {img, nome, preco, estoque} = req.body;
+        const product = Product.create({img, nome, preco, estoque});
+
+        return res.send({message:"Produto criado com sucesso"});
+        
+    } catch (error) {
+        return res.status(400).send({ error: 'Erro ao criar produto' });
+    }
+});
+
+router.delete('/:id', async(req, res) => {
+    try {
+        await Product.destroy({
+            where:{
+                id: req.params.id,
+            },
+        });
+
+        return res.send({message:'Produto excluido'});
+
+    } catch (error) {
+        return res.status(400).send({ error: 'Erro ao excluir produto' });
+    }
+});
+
+router.put('/:id', async(req, res) => {
+    try {
+        const {img, nome, preco, estoque} = req.body;
+
+        await Product.update({
+            img, 
+            nome, 
+            preco, 
+            estoque
         },
-    });
+            {
+                where: {id: req.params.id},
+            }
+        );
 
-    res.status(200).json({message: 'Produto excluido'})
+        return res.send({message:"Produto atualizado"});
+
+    } catch (error) {
+        return res.status(400).send({ error: 'Erro ao atualizar produto' });
+    }
 });
 
-router.put('/:id', async (req, res) => {
-    const {img, nome, preco, estoque} = req.body;
-
-    await Product.update(
-        {img, nome, preco, estoque},
-        {
-            where: {id: req.params.id},
-        }
-    );
-
-    res.status(200).json({message:"Produto atualizado"})
-})
 
 module.exports = router
