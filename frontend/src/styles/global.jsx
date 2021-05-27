@@ -1,5 +1,6 @@
 import { createGlobalStyle } from 'styled-components';
 
+
 export default createGlobalStyle`
     *{
         margin: 0;
@@ -9,7 +10,7 @@ export default createGlobalStyle`
     }
 
     body {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: 'Lexend Deca', sans-serif;;
         font-size: 14px;
         background: #1B1B1B;
         text-rendering: optimizeLegibility;
