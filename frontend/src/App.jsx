@@ -4,6 +4,7 @@ import  Header from './components/Header';
 import Footer from './components/Footer';
 import View from './components/View';
 
+
 function App(){
   return(
     <div className="App">
@@ -14,5 +15,9 @@ function App(){
     </div>
   );
 }
+
+
+
+
 
 export default App;
