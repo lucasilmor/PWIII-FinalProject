@@ -27,11 +27,11 @@ router.get('/:id', async(req, res) => {
     }
 });
 
-router.post('/', multer(multerConfig).single('file'), async(req, res) => {
+router.post('/', multer(multerConfig).single('img'), async(req, res) => {
     console.log(req.file);
     try {
-        const {img, nome, preco, estoque} = req.body;
-        const product = Product.create({img: req.file.filename, nome, preco, estoque});
+        const product = Product.create({...req.body});
+        console.log(product)
 
         return res.send({message:"Produto criado com sucesso"});
         

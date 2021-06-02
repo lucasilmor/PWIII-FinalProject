@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react'
+
 import axios from 'axios';
 import {Cont} from '../View/styles'
 
 
-
 import { makeStyles } from '@material-ui/core/styles';
+
 
 import Paper from '@material-ui/core/Paper';
 
@@ -18,6 +19,8 @@ import TableRow from '@material-ui/core/TableRow';
 
 import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup'; 
+
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,12 +64,31 @@ const View = () =>{
         });
       }, []);
 
+      async function handleDelete(id){
+        if(window.confirm("Deseja excluir este Produto?")){
+          axios.delete(`${serverURL}/products/`+id)
+          .then(() =>{
+            window.location.reload(false);
+          })
+        }
+      }
+
+      function showModal(){
+        document.getElementById('modal-background').style.display = "flex";
+      }
+
+      function showUpdate(id){
+        
+        document.getElementById('modaal-background').style.display = "flex";
+      }
+
+
 
       return(
         <Cont>
             <div className="view">
                 <h1>LISTA - PRODUTOS</h1>
-
+                <div className="table">
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
@@ -93,8 +115,8 @@ const View = () =>{
               <TableCell >{row.estoque}</TableCell>
               <TableCell >{new Date(row.createdAt).toLocaleString('pt-br')}</TableCell>
               <ButtonGroup aria-label="outlined primary button group">
-              <Button color="primary">Atualizar</Button>
-              <Button color="secondary">Excluir</Button>
+              <Button color="primary" onClick={() => showUpdate(row.id)}>Atualizar</Button>
+              <Button color="secondary" onClick={() => handleDelete(row.id)}>Excluir</Button>
               </ButtonGroup> 
             </TableRow>
           ))}
@@ -103,7 +125,12 @@ const View = () =>{
       </Table>
     </TableContainer>
             </div>
+            </div>
+            <div id="plus-icon-wrapper">
+              <i class="fas fa-plus-circle" onClick={() => showModal()}></i>
+            </div>
         </Cont>
+      
     )
 }
 
