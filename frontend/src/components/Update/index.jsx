@@ -2,15 +2,14 @@ import React, {useState, useEffect} from 'react';
 import axios from 'axios';
 import Button from '@material-ui/core/Button';
 import {Container} from './styles';
-
+import { useParams } from 'react-router-dom';
 
 const Update = () =>{
-
 
     const serverURL = 'http://localhost:5000';
 
     function closeModal(){
-        document.getElementById('modaal-background').style.display = "none";
+        window.location.href='/'
     }
 
     const [_img, setImg] = useState('');
@@ -18,32 +17,28 @@ const Update = () =>{
     const [_preco, setPreco] = useState();
     const [_estoque, setEstoque] = useState();
 
+    const { id } = useParams();
 
     useEffect(() => {
-        axios.get(`${serverURL}/products/`)
+        axios.get(`${serverURL}/products/`+id)
         .then((response) =>{
-            setImg(response.data.img);
-            setNome(response.data.nome);
-            setPreco(response.data.preco);
-            setEstoque(response.data.estoque);
-
+            setImg(response.data.product.img);
+            setNome(response.data.product.nome);
+            setPreco(response.data.product.preco);
+            setEstoque(response.data.product.estoque);
         });
       }, []);
 
-
-
+      
     async function updateProduct(){
-
-        
-
        const data = {img: _img, nome: _nome, preco: _preco, estoque: _estoque}
 
-        await axios.put(`${serverURL}/products/`,data)
+        await axios.put(`${serverURL}/products/`+id, data)
             .then(() => {
-                window.location.reload(false);
+                window.location.href='/'
             })
     }
-    
+
     return(
         <Container>
             <div className="register">
@@ -53,7 +48,7 @@ const Update = () =>{
                         <i class="fas fa-times" onClick={() => closeModal()}></i>
                         <div id="modal-content">
                             <div id="image-wrapper">
-                                <input type="file" title="" value={_img} onChange={e => setImg(e.target.value)}/>
+                                <input type="img" title="" value={_img} onChange={e => setImg(e.target.value)}/>
                             </div>
                             <form>
                                 <div class="input-container">

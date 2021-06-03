@@ -5,10 +5,11 @@ export const Container = styled.div`
 #modaal-background{
     width: 100vw;
     height: 100vh;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.7);
     position: absolute;
     z-index: 100000;
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: center;
 }

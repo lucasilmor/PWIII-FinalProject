@@ -76,14 +76,7 @@ const View = () =>{
       function showModal(){
         document.getElementById('modal-background').style.display = "flex";
       }
-
-      function showUpdate(id){
-        
-        document.getElementById('modaal-background').style.display = "flex";
-      }
-
-
-
+      
       return(
         <Cont>
             <div className="view">
@@ -115,7 +108,7 @@ const View = () =>{
               <TableCell >{row.estoque}</TableCell>
               <TableCell >{new Date(row.createdAt).toLocaleString('pt-br')}</TableCell>
               <ButtonGroup aria-label="outlined primary button group">
-              <Button color="primary" onClick={() => showUpdate(row.id)}>Atualizar</Button>
+              <Button color="primary" href={'/update/'+(row.id)} >Atualizar</Button>
               <Button color="secondary" onClick={() => handleDelete(row.id)}>Excluir</Button>
               </ButtonGroup> 
             </TableRow>
