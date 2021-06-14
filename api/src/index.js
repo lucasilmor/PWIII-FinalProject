@@ -17,4 +17,4 @@ app.get('/', (req, res) => {
 app.use('/products', controllers.products);
 app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', 'uploads')))
 
-app.listen(5000);
+app.listen(process.env.PORT || 5000);
