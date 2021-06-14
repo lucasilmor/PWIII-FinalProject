@@ -21,8 +21,6 @@ import Button from '@material-ui/core/Button';
 import ButtonGroup from '@material-ui/core/ButtonGroup'; 
 
 
-
-
 const useStyles = makeStyles((theme) => ({
     root: {
       display: 'flex',
@@ -102,7 +100,7 @@ const View = () =>{
               <TableCell component="th" scope="row">
                 {row.id}
               </TableCell>
-              <TableCell >{row.img}</TableCell>
+              <TableCell ><img src ={row.img} width="50px" height="50px" alt="img product"/></TableCell>
               <TableCell >{row.nome}</TableCell>
               <TableCell >{row.preco.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'})}</TableCell>
               <TableCell >{row.estoque}</TableCell>

@@ -32,6 +32,7 @@ const Update = () =>{
       
     async function updateProduct(){
        const data = {img: _img, nome: _nome, preco: _preco, estoque: _estoque}
+       data.path = {img: _img}
 
         await axios.put(`${serverURL}/products/`+id, data)
             .then(() => {
@@ -48,7 +49,7 @@ const Update = () =>{
                         <i class="fas fa-times" onClick={() => closeModal()}></i>
                         <div id="modal-content">
                             <div id="image-wrapper">
-                                <input type="img" title="" value={_img} onChange={e => setImg(e.target.value)}/>
+                                <input type="txt" value={_img} onChange={e => setImg(e.target.value)}/>
                             </div>
                             <form>
                                 <div class="input-container">
@@ -66,7 +67,7 @@ const Update = () =>{
                                 <div class="input-container">
                                 <label>Estoque</label>
                                     <div class="input-wrapper gerenciar">
-                                        <input type="number" value={_estoque} onChange={e => setEstoque(e.target.value)}/>
+                                        <input type="number" min='0' value={_estoque} onChange={e => setEstoque(e.target.value)}/>
                                     </div>
                                 </div>
                                 <Button id="send-button" variant="contained" onClick={() => updateProduct()}>

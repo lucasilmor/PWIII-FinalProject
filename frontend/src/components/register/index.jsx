@@ -18,9 +18,9 @@ const Register = () =>{
 
     async function saveProduct(){
 
-       const data = {img: _img, nome: _nome, preco: _preco, estoque: _estoque}
+       let data = {img: _img, nome: _nome, preco: _preco, estoque: _estoque}
 
-        await axios.post(`${serverURL}/products`,data)
+        await axios.post(`${serverURL}/products`, data)
             .then(() => {
                 window.location.reload(false);
             })
@@ -35,7 +35,7 @@ const Register = () =>{
                         <i class="fas fa-times" onClick={() => closeModal()}></i>
                         <div id="modal-content">
                             <div id="image-wrapper">
-                                <input type="file" title="" value={_img} onChange={e => setImg(e.target.value)}/>
+                                <input type="file" value={_img} onChange={e => setImg(e.target.value)}/>
                             </div>
                             <form>
                                 <div class="input-container">
@@ -53,7 +53,7 @@ const Register = () =>{
                                 <div class="input-container">
                                 <label>Estoque</label>
                                     <div class="input-wrapper gerenciar">
-                                        <input type="number" value={_estoque} onChange={e => setEstoque(e.target.value)}/>
+                                        <input type="number" min="0" value={_estoque} onChange={e => setEstoque(e.target.value)}/>
                                     </div>
                                 </div>
                                 <Button id="send-button" variant="contained" onClick={() => saveProduct()}>

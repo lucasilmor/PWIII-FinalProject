@@ -1,7 +1,8 @@
 const {Router} = require('express');
 const {Product} = require('../models');
 const multer = require('multer');
-const multerConfig = require('../config/multer')
+const multerConfig = require('../config/multer');
+const fs = require('fs');
 
 const router = Router();
 
@@ -27,15 +28,19 @@ router.get('/:id', async(req, res) => {
     }
 });
 
-router.post('/', multer(multerConfig).single('img'), async(req, res) => {
-    console.log(req.file);
+router.post('/', multer(multerConfig).single("file"), async(req, res) => {
     try {
-        const product = Product.create({...req.body});
-        console.log(product)
-
-        return res.send({message:"Produto criado com sucesso"});
+        const product = await Product.create({
+            img: req.body.img, 
+            nome: req.body.nome, 
+            preco: req.body.preco, 
+            estoque: req.body.estoque
+        });
+  
+        return res.send(product);
         
     } catch (error) {
+        console.log(error)
         return res.status(400).send({ error: 'Erro ao criar produto' });
     }
 });
@@ -55,12 +60,12 @@ router.delete('/:id', async(req, res) => {
     }
 });
 
-router.put('/:id', async(req, res) => {
+router.put('/:id', multer(multerConfig).single("file"), async(req, res) => {
     try {
-        const {img, nome, preco, estoque} = req.body;
+        const {nome, preco, estoque} = req.body;
 
-        await Product.update({
-            img, 
+        product = await Product.update({
+            img: req.body.img, 
             nome, 
             preco, 
             estoque
@@ -73,6 +78,7 @@ router.put('/:id', async(req, res) => {
         return res.send({message:"Produto atualizado"});
 
     } catch (error) {
+        console.log(error)
         return res.status(400).send({ error: 'Erro ao atualizar produto' });
     }
 });

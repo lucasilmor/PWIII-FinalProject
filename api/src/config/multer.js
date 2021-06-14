@@ -31,8 +31,8 @@ module.exports = {
         if (allowedMimes.includes(file.mimetype)){
             cb(null, true);
         }else{
-            cb(new Error("invalid file type"))
+            cb(new Error("Tipo de arquivo inválido"))
         }
     }
     
-};
+};    
