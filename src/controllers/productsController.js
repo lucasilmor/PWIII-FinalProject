@@ -13,6 +13,7 @@ router.get('/', async(req, res) =>{
         return res.send({ products });
 
     } catch (error) {
+        console.log(error)
         return res.status(400).send({ error: 'Erro ao carregar produtos' });
     }
 });
