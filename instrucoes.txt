@@ -1,7 +1,8 @@
 //PARA CRIAR O BANCO////
 cd src
+npm install --save-dev sequelize-cli
+npm install mysql2
 npx sequelize db:create
-npx sequelize migration:generate --name create-products-table  
 npx sequelize db:migrate
 /////////////////////////
 
