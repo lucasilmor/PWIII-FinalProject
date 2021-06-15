@@ -1,4 +1,0 @@
-//PARA CRIAR O BANCO////
-npx sequelize db:create
-npx sequelize migration:generate --name create-products-table  
-npx sequelize db:migrate

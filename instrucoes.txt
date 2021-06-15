@@ -1,0 +1,19 @@
+//PARA CRIAR O BANCO////
+cd src
+npx sequelize db:create
+npx sequelize migration:generate --name create-products-table  
+npx sequelize db:migrate
+/////////////////////////
+
+//START NO FRONTEND////
+cd frontend
+npm start
+////////////////////////
+
+//START NO NODE////
+yarn start
+///////////////////////
+
+*Ligar XAMPP
+
+
